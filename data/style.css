@@ -1,0 +1,81 @@
+body{
+width:450px;
+color:black;
+background:#fff;
+font-size:14px;
+font-family:arial;
+}
+img,table{
+border:0;
+}
+.top{
+color:#888;
+background:url(logo.gif) no-repeat 10px 0;
+padding:3px 0 0 55px;
+font-style:italic;
+margin:0 0 10px 0;
+}
+.top img{
+vertical-align:middle;
+}
+.menu{
+border-top:#fab548 5px solid;
+background:#efeff0 url(esp.gif) no-repeat 10px 10px;
+padding:5px 5px 5px 120px;
+margin:0 0 10px 0;
+min-height:120px;
+border-radius:5px;
+}
+.menu a,
+.menu a:link{
+display:block;
+font-weight:bold;
+text-decoration:none;
+color:#1486ba;
+padding:0 5px 1px 10px;
+font-size:13px;
+border-radius:3px;
+margin:0 0 1px 0;
+border-bottom:#d6d9da 1px solid;
+}
+.menu a:visited{
+color:#777;
+}
+.menu a:hover{
+background:#d6d9da;
+}
+
+table.details{
+border-collapse:collapse;
+width:100%;
+margin:0 0 10px 0;
+}
+table.details caption{
+font-weight:bold;
+padding:3px;
+}
+table.details td,
+table.details th{
+border:#aaa 1px solid;
+padding:1px 10px;
+background:#fff;
+}
+.content{
+background:#eee;
+border-radius:5px;
+border-top:#1486ba 5px solid;
+padding:5px;
+margin:0 0 10px 0;
+}
+.footer{
+border-top:#75be45 5px solid;;
+background:#d6d9da;
+border-radius:5px;
+padding:5px 10px;
+font-size:12px;
+margin:0 0 5px 0;
+}
+.copyright{
+font-size:11px;
+padding:0 0 0 10px;
+}

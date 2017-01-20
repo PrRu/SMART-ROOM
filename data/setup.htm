@@ -1,0 +1,39 @@
+<html><head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<title>Smart-Room</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h3 class="top">SMART-ROOM - Установки</h3>
+<div class="menu">
+	<a href='index.htm'>Главная</a>
+	<a href="pult.htm">Пульт</a>
+	<a href="setup.htm">Установки</a> <a href="help.htm">Помощь</a>
+	<a href='edit'>Загрузка файлов</a>
+</div>
+
+<table class="details">
+<caption>Техническое обслуживание</caption>
+    <tr>
+        <td>
+            <form name="form1">
+            <p align="left">AP name: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="AP" value="AutoConnectAP"><br>Password: 
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="password"><br>SSDP 
+                Name: <input type="text" name="SSDP" value="SMART-ROOM"></p>
+                <p align="right"><input type="submit" name="Save" value="Save">&nbsp;</p>
+            </form>
+            <p>&nbsp;</p>
+            <p>Перепрошивка модуля:</p>
+            <form method='POST' action='/update' enctype='multipart/form-data'><input type='file' name='update'><input type='submit' value='Update'></form>
+            <p>&nbsp;</p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p>&nbsp;</p>
+        </td>
+    </tr>
+</table>
+
+<div class="copyright">Сайт:  <a href="http://ESP8266-ArduinoIDE.ru" target="_blank">ESP8266-ArduinoIDE.ru</a></div>
+</body></html>
