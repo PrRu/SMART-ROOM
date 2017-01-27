@@ -100,7 +100,11 @@ void setup() {
   HTTPserv.on("/edit", HTTP_POST,
               []() { HTTPserv.send(200, "text/plain", ""); },
               []() { WebfileSystem.handleFileUpload(); });
-  // Если путь не опреден, то счиваем файл для WEB сервера, если файл не найден,
+  //Ответы на запросы JSON объектов
+  HTTPserv.on("/dynamicstat.json", HTTP_GET, []() { dynamicStatJSON(); });
+  HTTPserv.on("/staticstat.json", HTTP_GET, []() { staticStatJSON(); });
+  // Если путь не опреден, то считываем файл для WEB сервера, если файл не
+  // найден,
   // то 404 ошибка
   HTTPserv.onNotFound([]() {
     if (!WebfileSystem.handleFileRead(HTTPserv.uri()))
@@ -154,8 +158,34 @@ void loop() {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-//                                 Фукции                                   //
+//                                Функции                                   //
 //////////////////////////////////////////////////////////////////////////////
+
+// Отправка JSON сообщений
+// Сообщение о текущем состояние устройства
+void dynamicStatJSON(void) {
+  StaticJsonBuffer<200> jsonBuffer;
+  JsonObject &root = jsonBuffer.createObject();
+  root["wifi_rssi"] = WiFi.RSSI();
+  root["free_heap"] = ESP.getFreeHeap();
+  String output;
+  root.printTo(output);
+  HTTPserv.send(200, "application/json", output);
+}
+
+// Сообщение о параметрах и настройках
+void staticStatJSON(void) {
+  StaticJsonBuffer<200> jsonBuffer;
+  JsonObject &root = jsonBuffer.createObject();
+  root["ssid"] = WiFi.SSID();
+  root["ip"] = WiFi.localIP().toString();
+  root["gateway"] = WiFi.gatewayIP().toString();
+  root["subnet"] = WiFi.subnetMask().toString();
+  root["hostname"] = WiFi.hostname();
+  String output;
+  root.printTo(output);
+  HTTPserv.send(200, "application/json", output);
+}
 
 //Обновление прошивки
 void update(void) {

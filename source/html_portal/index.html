@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+
+    <title>SMART-ROOM control panel</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand">SMART-ROOM</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="index.html">Панель управления</a></li>
+                <li><a href="#">Файловая система</a></li>
+                <li><a href="#">Настройки</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="starter-template">
+        <div class="row">
+            <div class="col-sm-6 col-md-4">
+
+                <div class="panel panel-default panel-shadow">
+                    <div class="panel-body fixed-panel" id="info_network">
+                        <div class="lead margin5">Сеть</div>
+                        <small>
+                            <div class="text-left">IP адрес</div>
+                            <div class="text-left light-txt-color">{{data_ip}}</div>
+                            <div class="margin5"></div>
+                            <div class="text-left">Маска</div>
+                            <div class="text-left light-txt-color">{{data_mask}}</div>
+                            <div class="margin5"></div>
+                            <div class="text-left">Шлюз</div>
+                            <div class="text-left light-txt-color">{{data_gateway}}</div>
+                            <div class="margin5"></div>
+                            <div class="text-left">Имя хоста</div>
+                            <div class="text-left light-txt-color">{{data_hostname}}</div>
+                        </small>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <div class="panel panel-default  panel-shadow">
+                    <div class="panel-body fixed-panel" id="info_wifi">
+                        <div class="lead margin5">WiFi</div>
+                        <small>
+                            <div class="text-left">SSID</div>
+                            <div class="text-left light-txt-color">{{data_ssid}}</div>
+                            <div class="margin5"></div>
+                            <div class="text-left">RSSI</div>
+                            <div class="text-left light-txt-color">{{data_rssi}} dBm</div>
+                            <div class="margin5"></div>
+                        </small>
+                        <svg height="110px" width="110px" xmlns="http://www.w3.org/2000/svg">
+                            <g id="svg1">
+                                <circle class="fil0 str0" cx="55" cy="55" r="53"></circle>
+                                <g id="svg11">
+                                    <path id="lv1" :style="obj_lv1"
+                                          d="M21 59l-1 0c-3,0 -6,2 -6,5l0 10c0,3 3,6 6,6l1 0c3,0 6,-3 6,-6l0 -10c0,-3 -3,-5 -6,-5z"></path>
+                                    <path id="lv2" :style="obj_lv2"
+                                          d="M37 51c-3,0 -6,3 -6,6l0 17c0,3 3,6 6,6l1 0c3,0 6,-3 6,-6l0 -17c0,-3 -3,-6 -6,-6l-1 0z"></path>
+                                    <path id="lv3" :style="obj_lv3"
+                                          d="M55 80l0 0c4,0 6,-2 6,-5l0 -25c0,-3 -2,-6 -6,-6l0 0c-4,0 -6,3 -6,6l0 25c0,3 2,5 6,5z"></path>
+                                    <path id="lv4" :style="obj_lv4"
+                                          d="M72 80l1 0c3,0 6,-3 6,-7l0 -29c0,-4 -3,-7 -6,-7l-1 0c-3,0 -6,3 -6,7l0 29c0,4 3,7 6,7z"></path>
+                                    <path id="lv5" :style="obj_lv5"
+                                          d="M90 80c3,0 6,-3 6,-6l0 -38c0,-3 -3,-6 -6,-6l-1 0c-3,0 -6,3 -6,6l0 38c0,3 3,6 6,6l1 0z"></path>
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <div class="panel panel-default  panel-shadow">
+                    <div class="panel-body fixed-panel"  id="panel_output">
+                        <div class="lead margin5">Выходы</div>
+                        <div class="tbl1cont">
+                            <div class="tbl5050">
+                                <input type="checkbox" class="checkbox" id="ch1" v-on:click="btn_click">
+                                <label for="ch1">
+                                    <small>Канал 1</small>
+                                </label>
+                                <div class="margin25"></div>
+                                <input type="checkbox" class="checkbox" id="ch2" v-on:click="btn_click">
+                                <label for="ch2">
+                                    <small>Канал 2</small>
+                                </label>
+                                <div class="margin25"></div>
+                                <input type="checkbox" class="checkbox" id="ch3" v-on:click="btn_click">
+                                <label for="ch3">
+                                    <small>Канал 3</small>
+                                </label>
+                                <div class="margin25"></div>
+                                <input type="checkbox" class="checkbox" id="ch4" v-on:click="btn_click">
+                                <label for="ch4">
+                                    <small>Канал 4</small>
+                                </label>
+                            </div>
+                            <div class="tbl5050">
+                                <input type="checkbox" class="checkbox" id="ch5" v-on:click="btn_click">
+                                <label for="ch5">
+                                    <small>Канал 5</small>
+                                </label>
+                                <div class="margin25"></div>
+                                <input type="checkbox" class="checkbox" id="ch6" v-on:click="btn_click">
+                                <label for="ch6">
+                                    <small>Канал 6</small>
+                                </label>
+                                <div class="margin25"></div>
+                                <input type="checkbox" class="checkbox" id="ch7" v-on:click="btn_click">
+                                <label for="ch7">
+                                    <small>Канал 7</small>
+                                </label>
+                                <div class="margin25"></div>
+                                <input type="checkbox" class="checkbox" id="ch8" v-on:click="btn_click">
+                                <label for="ch8">
+                                    <small>Канал 8</small>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.container -->
+<div class="modal fade" id="modalShowError" tabindex="-1" role="dialog" aria-labelledby="modalShowErrorLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-danger" id="modalShowErrorlLabel">Аварийное сообщение</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+
+                </div>
+                <div class="alert alert-danger text-center">
+                    <svg height="120px" width="136px" xmlns="http://www.w3.org/2000/svg">
+                        <g>
+                            <path style="fill:#A94442"
+                                  d="M65 0c0,1 -2,2 -3,2 -1,2 -2,4 -11,19 -4,7 -8,13 -17,29 -4,7 -8,15 -10,18 -2,3 -5,9 -8,13 -11,20 -16,28 -16,29 -1,3 2,7 6,9l2 1 60 0c59,0 60,0 62,-1 3,-1 4,-3 5,-5 1,-2 1,-3 1,-4 -1,-2 -1,-3 -7,-12 -1,-3 -3,-7 -4,-8 -1,-2 -14,-24 -15,-25 0,-1 -5,-9 -10,-18 -5,-9 -11,-19 -12,-21 -2,-3 -3,-6 -4,-7 0,0 -2,-4 -4,-8 -5,-8 -6,-9 -9,-10 -2,-1 -3,-1 -6,-1zm6 5c1,1 3,4 4,7 2,4 5,8 6,11 2,2 6,9 9,14 3,6 14,24 24,42 19,34 19,33 16,35l-1 2 -59 0c-33,0 -60,0 -61,0 -3,0 -5,-2 -5,-5 0,-1 1,-2 3,-6 2,-3 4,-7 6,-11 2,-3 5,-8 7,-11 5,-9 12,-21 16,-27 3,-7 9,-16 13,-24 12,-20 15,-26 16,-27 1,0 1,-1 3,-1 2,0 2,1 3,1l0 0zm-5 26c-1,0 -2,1 -3,2 -3,3 -3,0 0,29 0,8 1,16 2,20 0,6 0,7 1,8 2,1 3,1 4,0 1,-1 1,-2 2,-7 0,-3 1,-10 1,-16 1,-5 1,-14 2,-19 1,-12 1,-12 -1,-14 -1,-2 -1,-2 -3,-3 -2,0 -3,-1 -3,-1 0,0 -1,1 -2,1l0 0zm0 66c-3,1 -4,4 -2,7 3,6 12,1 9,-5 -2,-3 -5,-4 -7,-2z"></path>
+                        </g>
+                    </svg>
+                    <h4>Нет связи с модулем SMART-ROOM!</h4></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="jquery.min.js"></script>
+<script src="bootstrap.min.js"></script>
+<script src="vue.js"></script>
+<script src="mainjs.js"></script>
+</body>
+</html>
