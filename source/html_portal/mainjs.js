@@ -55,12 +55,12 @@ let panel_wifi = new Vue({
     }
 });
 
-let  panel_output  =  new Vue({
+let panel_output = new Vue({
     el: '#panel_output',
     methods: {
         btn_click: function (event) {
             if (event) {
-                alert(event.target.id);
+                alert("ID = " + event.target.id + ", cheked = " + event.target.checked);
             }
         }
 
@@ -77,26 +77,29 @@ fetch('staticstat.json')
         panel_info.data_gateway = data['gateway'];
         panel_info.data_hostname = data['hostname'];
         panel_wifi.data_ssid = data['ssid'];
-        reqwifiinfo();
+        reqDynamicInfo();
     }).catch(function (error) {
     console.log('request failed', error)
 });
 
 //Запрос динамической информации
-setInterval(function () {
-    reqwifiinfo();
-}, 5000);
-
-function reqwifiinfo() {
+function reqDynamicInfo() {
     fetch('dynamicstat.json', {cache: 'no-cache'})
         .then(checkStatus)
         .then(parseJSON)
         .then(function (data) {
+            //перезапуск  таймера
+            setTimeout(function () {
+                reqDynamicInfo();
+            }, 5000);
+            //Вывод  ин-ции  на  панель
             panel_wifi.data_rssi = data['wifi_rssi'];
             $('#modalShowError').modal('hide');
         }).catch(function (error) {
+        //если информация не получена, то выводим сообщение об ошибке
         console.log('request failed', error);
         $('#modalShowError').modal('show');
+
     });
 }
 

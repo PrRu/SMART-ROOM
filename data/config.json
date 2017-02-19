@@ -1,8 +1,8 @@
 {
-  "network": {
   "ip": "192.168.2.101",
-  "mask": "255.255.255.0",
+  "subnet": "255.255.255.0",
   "gateway": "192.168.2.1",
-  "hostname": "SMART-ROOM_Sauna"
-  }
+  "hostname": "SMART-ROOM_Sauna",
+  "mqtt_server": "192.168.2.1",
+  "mqtt_port": "1883"
 }
