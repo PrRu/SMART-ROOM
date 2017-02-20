@@ -10,9 +10,13 @@
 #include "Display.h"
 
 //Настройки
+//Выводы
 #define goSetting 16
 #define scl_pin 5
 #define sda_pin 4
+//Константы
+#define info_period 20000 //Интервал отсылки инф-ции об устройстве через MQTT
+
 //Настройки по умолчанию
 char ip_str[20] = "192.168.2.100\0";
 char gateway_str[20] = "192.168.2.1\0";
@@ -23,6 +27,7 @@ char mqtt_portStr[11] = "1883\0";
 
 void callback_subscr(const MQTT::Publish &pub);
 void saveConfigCallback (void);
-
+void timerUpdate(void);
+void sndPeriodicInfo(void);
 
 #endif

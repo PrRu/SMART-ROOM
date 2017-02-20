@@ -12,6 +12,7 @@ public:
   display(void);
   void begin(void); //Инициализация дисплея
   void update(void); //Обновление информации на дисплее
+  void cnfgPortalstr(void); //Показ ин-ции о запуски WiFiManager
 
 private:
   OLED oled_disp;

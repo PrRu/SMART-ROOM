@@ -7,8 +7,8 @@ TwoWire i2c_conn;
 WiFiClient wfclient; //подключение mqtt к wifi
 PubSubClient mqtt_client(wfclient);
 bool shouldSaveConfig = false; //флаг требуется сохранить конфигурацию
-display disp_i2c;
-
+display disp_i2c; //OLED дисплей на шине I2C
+unsigned long tickTack = 0;
 
 //////////////////////////////////////////////////////////////////////////////
 //                        Первоначальные настройки                          //
@@ -101,6 +101,8 @@ void setup() {
   }
   //Вызов портала конфигурации
   if (startConfigPortal) {
+    //Выводим надпись о запуске портала конфигурации
+    disp_i2c.cnfgPortalstr();
     //Включаем WiFiManager
     WiFiManager wifiManager;
     wifiManager.setSaveConfigCallback(saveConfigCallback);
@@ -182,7 +184,9 @@ void loop() {
       mqtt_client.loop();
   }
   //обновление дисплея
-  disp_i2c.update();    
+  disp_i2c.update();
+  //обновление таймера для переодических событий
+  timerUpdate();
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -201,4 +205,32 @@ void callback_subscr(const MQTT::Publish &pub) {
 void saveConfigCallback() {
   Serial.println("Should save config");
   shouldSaveConfig = true;
+}
+
+// Таймер для переодических событий
+void timerUpdate(void) {
+  unsigned long currTick = millis();
+  //Переодическая рассылка информации о состояние устройства
+  if (currTick > (tickTack + info_period)) {
+    sndPeriodicInfo();
+    tickTack = currTick;
+  };
+}
+
+//Переодическая рассылка по MQTT информации о состоянии устройства
+void sndPeriodicInfo(void){
+  //Если есть подключение mqtt, то публикуем топик
+  if (mqtt_client.connected()) {
+    //Формируем JSON строку для отправки по MQTT
+    DynamicJsonBuffer jsonBuffer;
+    JsonObject &json = jsonBuffer.createObject();
+    json["wifi_ssid"] = WiFi.SSID();
+    json["wifi_rssi"] = WiFi.RSSI();
+    json["ip"] = WiFi.localIP().toString();
+    String Payload;
+    json.printTo(Payload);
+    String Topic = "info/" + WiFi.hostname();
+    mqtt_client.publish(Topic, Payload);
+  }
+
 }

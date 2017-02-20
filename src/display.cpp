@@ -36,11 +36,21 @@ void display::update(void) {
 void display::showScreen_0(void) {
   if (WiFi.status() == WL_CONNECTED) {
     char buf[17];
-    sprintf(buf, "%-16s", WiFi.SSID().c_str());
+    sprintf(buf, "%-16s", WiFi.SSID().c_str()); //Название WiFi сети
     oled_disp.print(buf, 0);
-    sprintf(buf, "%-16s", WiFi.hostname().c_str());
+    //Выводим шкалу силы сигнала WiFi
+    if (WiFi.RSSI() <= -100) sprintf(buf, "     |  ");
+    if ((WiFi.RSSI() >= -101) && (WiFi.RSSI() <= -91)) sprintf(buf, "    *|  ");
+    if ((WiFi.RSSI() >= -90) && (WiFi.RSSI() <= -81)) sprintf(buf, "   **|  ");
+    if ((WiFi.RSSI() >= -80) && (WiFi.RSSI() <= -71)) sprintf(buf, "  ***|  ");
+    if ((WiFi.RSSI() >= -70) && (WiFi.RSSI() <= -61)) sprintf(buf, " ****|  ");
+    if (WiFi.RSSI() >= -60) sprintf(buf, "*****|  ");
     oled_disp.print(buf, 2);
-  } else {
+    //Сила сигнала WiFi в цифровом виде
+    sprintf(buf, "%d dBm", WiFi.RSSI());
+    oled_disp.print(buf, 2, 8);
+  }
+   else {
     oled_disp.clear();
     oled_disp.print("WiFi", 0);
     oled_disp.print("not connected!", 2);
@@ -51,23 +61,21 @@ void display::showScreen_0(void) {
 void display::showScreen_1(void) {
   if (WiFi.status() == WL_CONNECTED) {
     char buf[17];
-    sprintf(buf, "%12d dBm", WiFi.RSSI());
+    sprintf(buf, "%-16s", WiFi.hostname().c_str());
     oled_disp.print(buf, 0);
     sprintf(buf, "%-16s", WiFi.localIP().toString().c_str());
     oled_disp.print(buf, 2);
-
-    if (WiFi.RSSI() <= -100) sprintf(buf, "     | ");
-    if ((WiFi.RSSI() >= -101) && (WiFi.RSSI() <= -91)) sprintf(buf, "    *| ");
-    if ((WiFi.RSSI() >= -90) && (WiFi.RSSI() <= -81)) sprintf(buf, "   **| ");
-    if ((WiFi.RSSI() >= -80) && (WiFi.RSSI() <= -71)) sprintf(buf, "  ***| ");
-    if ((WiFi.RSSI() >= -70) && (WiFi.RSSI() <= -61)) sprintf(buf, " ****| ");
-    if (WiFi.RSSI() >= -60) sprintf(buf, "*****| ");
-
-    oled_disp.print(buf, 0);
-
   } else {
     oled_disp.clear();
     oled_disp.print("WiFi", 0);
     oled_disp.print("not connected!", 2);
   }
+}
+
+//Показ информационного сообщения о запуске WiFiManager
+void display::cnfgPortalstr(void){
+  oled_disp.clear();
+  oled_disp.print("    Starting", 2);
+  oled_disp.print("  config portal", 4);
+  oled_disp.print(" IP: 192.168.4.1", 6);
 }
