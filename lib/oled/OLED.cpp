@@ -152,10 +152,10 @@ void OLED::SendChar(unsigned char data)
 {
   //if (interrupt && !doing_menu) return;   // Stop printing only if interrupt is call but not in button functions
 
-  Wire.beginTransmission(_address); // begin transmitting
-  Wire.write(0x40);//data mode
-  Wire.write(data);
-  Wire.endTransmission();    // stop transmitting
+  _Wire->beginTransmission(_address); // begin transmitting
+  _Wire->write(0x40);//data mode
+  _Wire->write(data);
+  _Wire->endTransmission();    // stop transmitting
 }
 
 //==========================================================//
@@ -165,23 +165,23 @@ void OLED::SendChar(unsigned char data)
 void OLED::sendCharXY(unsigned char data, int X, int Y)
 {
   setXY(X, Y);
-  Wire.beginTransmission(_address); // begin transmitting
-  Wire.write(0x40);//data mode
+  _Wire->beginTransmission(_address); // begin transmitting
+  _Wire->write(0x40);//data mode
 
   for(int i=0;i<8;i++)
-    Wire.write(pgm_read_byte(myFont[data-0x20]+i));
+    _Wire->write(pgm_read_byte(myFont[data-0x20]+i));
 
-  Wire.endTransmission();    // stop transmitting
+  _Wire->endTransmission();    // stop transmitting
 }
 
 //==========================================================//
 // Used to send commands to the display.
 void OLED::sendcommand(unsigned char com)
 {
-  Wire.beginTransmission(_address);     //begin transmitting
-  Wire.write(0x80);                          //command mode
-  Wire.write(com);
-  Wire.endTransmission();                    // stop transmitting
+  _Wire->beginTransmission(_address);     //begin transmitting
+  _Wire->write(0x80);                          //command mode
+  _Wire->write(com);
+  _Wire->endTransmission();                    // stop transmitting
 }
 
 //==========================================================//
@@ -283,9 +283,10 @@ void OLED::init_OLED(void)
 //==========================================================//
 
 
-OLED::OLED(uint8_t address, uint8_t offset) {
+OLED::OLED(TwoWire *UseWire, uint8_t address, uint8_t offset) {
 	_address = address;
 	_offset = offset;
+  _Wire = UseWire;
 }
 
 void OLED::begin(void) {

@@ -8,6 +8,7 @@
 #include <WiFiManager.h> //https://github.com/tzapu/WiFiManager
 #include <Wire.h>
 #include "Display.h"
+#include "io_cntr.h"
 
 //Настройки
 //Выводы

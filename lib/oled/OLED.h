@@ -21,7 +21,7 @@
 
 class OLED {
 	public:
-		OLED(uint8_t address=0x3c, uint8_t offset=0);
+		OLED(TwoWire *UseWire, uint8_t address=0x3c, uint8_t offset=0);
 		void begin(void);
 		void on(void);
 		void off(void);
@@ -30,6 +30,7 @@ class OLED {
 
 	private:
 		uint8_t _address, _offset;
+		TwoWire *_Wire;
 		void reset_display(void);
 		void displayOn(void);
 		void displayOff(void);

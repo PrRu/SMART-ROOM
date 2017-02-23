@@ -1,5 +1,5 @@
-#ifndef DISPLAY_H
-#define DISPLAY_H
+#ifndef _DISPLAY_H
+#define _DISPLAY_H
 
 #include <OLED.h>
 #include <ESP8266WiFi.h>
@@ -9,13 +9,13 @@
 class display {
 
 public:
-  display(void);
+  display(TwoWire *UseWire);
   void begin(void); //Инициализация дисплея
   void update(void); //Обновление информации на дисплее
   void cnfgPortalstr(void); //Показ ин-ции о запуски WiFiManager
 
 private:
-  OLED oled_disp;
+  OLED* oled_disp;
   unsigned long lastTick = 0;
   uint8_t currScreen = 0;
 

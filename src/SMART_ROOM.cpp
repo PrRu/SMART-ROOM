@@ -7,7 +7,8 @@ TwoWire i2c_conn;
 WiFiClient wfclient; //подключение mqtt к wifi
 PubSubClient mqtt_client(wfclient);
 bool shouldSaveConfig = false; //флаг требуется сохранить конфигурацию
-display disp_i2c; //OLED дисплей на шине I2C
+display disp_i2c(&i2c_conn); //OLED дисплей на шине I2C
+io_cntr io_block(&i2c_conn); //Блоко входов / выходов на PCF8574
 unsigned long tickTack = 0;
 
 //////////////////////////////////////////////////////////////////////////////
@@ -24,9 +25,12 @@ void setup() {
   //Настройка интерфейса i2c
   i2c_conn.begin(sda_pin, scl_pin);
   i2c_conn.setClock(100000L);
+  //Настройка входов / выходов
+  io_block.begin();
+  Serial.println("IO block started");
   //Настройка дисплея
   disp_i2c.begin();
-
+  Serial.println("OLED display started");
   //Загрузка файла конфигурации
   Serial.println("mounting FS...");
 
